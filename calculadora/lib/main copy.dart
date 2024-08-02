@@ -1,7 +1,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 
 void main(){
@@ -25,87 +24,53 @@ class _MyAppState extends State<MyApp> {
 
   double primeiroValor = 0.0;
   double segundoValor = 0.0;
-  String operacao = '';
 
   String numero = '';
 
   void calcular(String tecla){
-    
-       
-   switch(tecla){
-
-    case 'ac':       
-      numero = '';     
-    break;    
-    case '0':
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-    case '9':
-    case '.':
-          setState(() {                             
-              numero+=tecla;   
-              // if(numero.contains('.')){
-              //         // double numeroD = double.parse(numero);
-              //         // numero = numeroD.toString();
-              //   }else{
-              //     int numeroI = int.parse(numero);
-              //     numero = numeroI.toString();
-              //   }      
-           });
+  
+     setState((){      
+      numero +=tecla;     
+     }
+     );
 
 
-    case '/':
-    case '*':
-    case '-':
-
-    case '+':
-    
-            String numeroModificado = numero.replaceAll('+', '');
-            print(numeroModificado);
-            print(numero);
-
-            primeiroValor = double.parse(numeroModificado);
-            numero = '';
-            operacao = tecla;
+     setState(() {       
+       if(numero.contains('.')){
+          // double numeroD = double.parse(numero);
+          // numero = numeroD.toString();
+       }else{
+        // int numeroI = int.parse(numero);
+        // numero = numeroI.toString();
+       }
 
 
-            setState(() {
-              numero;
-            });
+        if(numero.contains('+')){          
+          
+          String numeroModificado = numero.replaceAll('+','');         
 
-
-    break;
-
-    case '=':
-    double resultado=0.0;
-
-  if(numero==''){
-    numero='0';
-
-  }else{
-
-    if(operacao=='+'){   
-      
-      resultado = primeiroValor + double.parse(numero);
-      numero = resultado.toString();     
-
-      setState(() {
-        numero;
-      });
-
-    }
-  }
-
-    break;
+          primeiroValor = double.parse(numeroModificado);
+          numero = '';
+          print(primeiroValor);
          
+        }
 
-   }
+        if(numero.contains('=')){
+        String numeroModificado = numero.replaceAll('=', '');
+        segundoValor = double.parse(numeroModificado);
+        primeiroValor +=segundoValor;
+        
+        
+        
+        numero = primeiroValor.toString();
+
+
+
+        }
+
+
+
+     });
   
      
   }
@@ -157,8 +122,7 @@ class _MyAppState extends State<MyApp> {
             GestureDetector(
               onTap: () {
                   setState(() {                    
-                // numero = '0';
-                calcular('ac');
+                numero = '';
                   });
               },
               child: Text('AC', style: TextStyle(fontSize: 40,),)),
