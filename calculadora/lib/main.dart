@@ -1,5 +1,5 @@
 
-
+// 50
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -35,7 +35,8 @@ class _MyAppState extends State<MyApp> {
    switch(tecla){
 
     case 'ac':       
-      numero = '';     
+      numero = '';   
+      operacao ='' ;
     break;    
     case '0':
     case '1':
@@ -63,18 +64,23 @@ class _MyAppState extends State<MyApp> {
     case '/':
     case '*':
     case '-':
+         String numeroModificado = numero.replaceAll('-', '');
+            
+            primeiroValor = double.parse(numeroModificado);
+            numero = '';
+            operacao = tecla;
+            setState(() {
+              numero;
+            });
+    break;
 
     case '+':
     
             String numeroModificado = numero.replaceAll('+', '');
-            print(numeroModificado);
-            print(numero);
-
+            
             primeiroValor = double.parse(numeroModificado);
             numero = '';
             operacao = tecla;
-
-
             setState(() {
               numero;
             });
@@ -93,13 +99,25 @@ class _MyAppState extends State<MyApp> {
     if(operacao=='+'){   
       
       resultado = primeiroValor + double.parse(numero);
-      numero = resultado.toString();     
+      numero = resultado.toString().replaceFirst(RegExp(r'\.?0*$'), '');     
 
       setState(() {
         numero;
       });
-
     }
+     if(operacao=='-'){   
+      
+      resultado = primeiroValor - double.parse(numero);
+      numero = resultado.toString().replaceFirst(RegExp(r'\.?0*$'), '');     
+
+      setState(() {
+        numero;
+      });
+    }
+
+
+
+
   }
 
     break;
