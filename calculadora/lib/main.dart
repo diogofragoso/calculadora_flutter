@@ -276,7 +276,15 @@ class _MyAppState extends State<MyApp> {
                 
                 calcular('7');
                 },
-              child: Text('7', style: TextStyle(fontSize: 40,),)              
+              child: Container(
+                      decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 12, 12, 12), // Defina a cor de fundo desejada aqui
+                  shape: BoxShape.circle
+                ),
+                padding: EdgeInsets.all(20) ,
+                child: Text('7', style: TextStyle(fontSize: 40, color: Colors.white),)
+                
+                )              
               
               ),
 
