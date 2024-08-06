@@ -62,12 +62,32 @@ class _MyAppState extends State<MyApp> {
 
 
     case '/':
+    String numeroModificado = numero.replaceAll('/', '');
+            
+            primeiroValor = double.parse(numeroModificado);
+            numero +=tecla;
+            operacao = tecla;
+            setState(() {
+              numero;
+            });
+    break;
+
+
+
     case '*':
+    String numeroModificado = numero.replaceAll('*', '');
+            
+            primeiroValor = double.parse(numeroModificado);
+            numero +=tecla;
+            operacao = tecla;
+            setState(() {
+              numero;
+            });
     case '-':
          String numeroModificado = numero.replaceAll('-', '');
             
             primeiroValor = double.parse(numeroModificado);
-            numero = '';
+            numero +=tecla;
             operacao = tecla;
             setState(() {
               numero;
@@ -76,10 +96,9 @@ class _MyAppState extends State<MyApp> {
 
     case '+':
     
-            String numeroModificado = numero.replaceAll('+', '');
-            
-            primeiroValor = double.parse(numeroModificado);
-            numero = '';
+            String numeroModificado = numero.replaceAll('+', '');            
+            primeiroValor = double.parse(numeroModificado);        
+            numero +=tecla;          
             operacao = tecla;
             setState(() {
               numero;
@@ -97,9 +116,17 @@ class _MyAppState extends State<MyApp> {
   }else{
 
     if(operacao=='+'){   
-      
-      resultado = primeiroValor + double.parse(numero);
-      numero = resultado.toString().replaceFirst(RegExp(r'\.?0*$'), '');     
+   
+
+   List<String>parteNum = numero.split('+');
+    primeiroValor = double.parse(parteNum[0]);
+    segundoValor = double.parse(parteNum[1]);
+    primeiroValor +=segundoValor;
+    numero = primeiroValor.toString().replaceFirst(RegExp(r'\.?0*$'), '');    
+
+
+      // resultado = primeiroValor + double.parse(numero);
+      // numero = resultado.toString().replaceFirst(RegExp(r'\.?0*$'), '');     
 
       setState(() {
         numero;
@@ -107,12 +134,51 @@ class _MyAppState extends State<MyApp> {
     }
      if(operacao=='-'){   
       
-      resultado = primeiroValor - double.parse(numero);
-      numero = resultado.toString().replaceFirst(RegExp(r'\.?0*$'), '');     
+          List<String>parteNum = numero.split('-');
+          primeiroValor = double.parse(parteNum[0]);
+          segundoValor = double.parse(parteNum[1]);
+          primeiroValor -=segundoValor;
+          numero = primeiroValor.toString().replaceFirst(RegExp(r'\.?0*$'), '');    
 
       setState(() {
         numero;
       });
+    }
+     if(operacao=='*'){           
+          List<String>parteNum = numero.split('*');
+          primeiroValor = double.parse(parteNum[0]);
+          segundoValor = double.parse(parteNum[1]);
+          primeiroValor *=segundoValor;
+          numero = primeiroValor.toString().replaceFirst(RegExp(r'\.?0*$'), '');          
+
+
+      setState(() {
+        numero;
+      });
+    }
+
+     if(operacao=='/'){   
+      
+      if(primeiroValor != 0){        
+          List<String>parteNum = numero.split('/');
+          primeiroValor = double.parse(parteNum[0]);
+          segundoValor = double.parse(parteNum[1]);
+          primeiroValor /=segundoValor;
+          numero = primeiroValor.toString().replaceFirst(RegExp(r'\.?0*$'), '');   
+
+      setState(() {
+        numero;
+      });
+
+
+      }else{
+        setState(() {
+
+          numero = 'Divisor zero';
+
+          
+        });
+      }
     }
 
 
