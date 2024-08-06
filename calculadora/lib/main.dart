@@ -251,7 +251,18 @@ class _MyAppState extends State<MyApp> {
             Text('', style: TextStyle(fontSize: 40,),),
 
 
-            Text('<-', style: TextStyle(fontSize: 40,),),
+            GestureDetector(
+              onTap: () {
+
+                  setState(() {              
+                    if(numero.isNotEmpty)      {
+                    numero = numero.substring(0,numero.length -1);                 
+                    }
+                  });
+              },
+              
+              
+              child: Text('<-', style: TextStyle(fontSize: 40,),)),
 
           ],),
 
