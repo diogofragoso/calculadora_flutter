@@ -2,6 +2,7 @@
 // 50
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:calculadora/componentes/btn.dart';
 
 
 void main(){
@@ -61,28 +62,32 @@ class _MyAppState extends State<MyApp> {
            });
 
 
-    case '/':
-    String numeroModificado = numero.replaceAll('/', '');
-            
-            primeiroValor = double.parse(numeroModificado);
-            numero +=tecla;
-            operacao = tecla;
-            setState(() {
-              numero;
-            });
+    case '/':    
+               List<String>parteNum = numero.split('/');
+               if(parteNum[0]==''){
+               }else{
+                  primeiroValor = double.parse(parteNum[0]);
+                  numero +=tecla;
+                  operacao = tecla;
+                  setState(() {
+                     numero;
+                  });
+               } 
+        
     break;
 
 
 
     case '*':
-    String numeroModificado = numero.replaceAll('*', '');
-            
-            primeiroValor = double.parse(numeroModificado);
-            numero +=tecla;
-            operacao = tecla;
-            setState(() {
-              numero;
-            });
+   List<String>parteNum = numero.split('*');
+               if(parteNum[0]==''){
+               }else{          
+                    numero +=tecla;
+                    operacao = tecla;
+                    setState(() {
+                      numero;
+                    });
+          }
     case '-':
          String numeroModificado = numero.replaceAll('-', '');
             
@@ -108,12 +113,14 @@ class _MyAppState extends State<MyApp> {
     break;
 
     case '=':
-    double resultado=0.0;
+    // double resultado=0;
 
   if(numero==''){
-    numero='0';
+    numero='';
 
   }else{
+      if(operacao==''){}
+
 
     if(operacao=='+'){   
    
@@ -245,7 +252,10 @@ class _MyAppState extends State<MyApp> {
                 calcular('ac');
                   });
               },
-              child: Text('AC', style: TextStyle(fontSize: 40,),)),
+              child: Btn(tecla: 'AC', pad: 8,),
+              
+              
+              ),
 
             Text('', style: TextStyle(fontSize: 40,),),
             Text('', style: TextStyle(fontSize: 40,),),
@@ -262,7 +272,9 @@ class _MyAppState extends State<MyApp> {
               },
               
               
-              child: Text('<-', style: TextStyle(fontSize: 40,),)),
+              child: Btn(tecla: '<--',pad: 10,)
+              
+              ),
 
           ],),
 
@@ -272,33 +284,35 @@ class _MyAppState extends State<MyApp> {
             children: [
             
             GestureDetector(
-              onTap:(){
-                
+              onTap:(){                
                 calcular('7');
                 },
-              child: Container(
-                      decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 12, 12, 12), // Defina a cor de fundo desejada aqui
-                  shape: BoxShape.circle
-                ),
-                padding: EdgeInsets.all(20) ,
-                child: Text('7', style: TextStyle(fontSize: 40, color: Colors.white),)
-                
-                )              
-              
+              child: Btn(tecla: '7'),                                             
               ),
 
             GestureDetector(
               onTap: () => calcular('8'),
-              child: Text('8', style: TextStyle(fontSize: 40,),)),
 
+              child: Btn(tecla: '8',)
+            ),
+              
+             
             GestureDetector(
+
               onTap: () => calcular('9'),
-              child: Text('9', style: TextStyle(fontSize: 40,),)),
+
+              child: Btn(tecla: '9'),
+              
+              
+              
+              ),
 
             GestureDetector(
               onTap: () => calcular('/'),
-              child: Text('/', style: TextStyle(fontSize: 40,),)),
+
+              child: Btn(tecla: '/',pad: 25,)
+              
+              ),
 
           ],),
 
@@ -309,19 +323,26 @@ class _MyAppState extends State<MyApp> {
             
             GestureDetector(
               onTap: () => calcular('4'),
-              child: Text('4', style: TextStyle(fontSize: 40,),)),
+              child: Btn(tecla: '4'),           
+              ),
 
              GestureDetector(
               onTap: () => calcular('5'),
-              child: Text('5', style: TextStyle(fontSize: 40,),)),
+
+              child: Btn(tecla: '5'),
+              ),
 
             GestureDetector(
               onTap: () => calcular('6'),
-              child: Text('6', style: TextStyle(fontSize: 40,),)),
+
+              child: Btn(tecla: '6'),
+              ),
 
             GestureDetector(
               onTap: () => calcular('*'),
-              child: Text('*', style: TextStyle(fontSize: 40,),)),
+
+              child: Btn(tecla: '*',pad: 25,),
+              ),
 
           ],),
 
@@ -332,19 +353,23 @@ class _MyAppState extends State<MyApp> {
             
             GestureDetector(
               onTap: () => calcular('1'),
-              child: Text('1', style: TextStyle(fontSize: 40,),)),
+              child: Btn(tecla: '1'),
+              ),
 
             GestureDetector(
               onTap: () => calcular('2'),
-              child: Text('2', style: TextStyle(fontSize: 40,),)),
+              child: Btn(tecla: '2'),
+              ),
 
             GestureDetector(
               onTap: () => calcular('3'),
-              child: Text('3', style: TextStyle(fontSize: 40,),)),
+              child: Btn(tecla: '3'),
+              ),
 
             GestureDetector(
               onTap: () => calcular('-'),
-              child: Text('-', style: TextStyle(fontSize: 40,),)),
+              child: Btn(tecla: '-', pad: 30,)
+              ),
 
           ],),
             
@@ -355,19 +380,23 @@ class _MyAppState extends State<MyApp> {
             
             GestureDetector(
               onTap: () => calcular('0'),
-              child: Text('0', style: TextStyle(fontSize: 40,),)),
+              child: Btn(tecla: '0'),
+              ),
 
             GestureDetector(
               onTap: () => calcular('.'),
-              child: Text('.', style: TextStyle(fontSize: 40,),)),
+              child: Btn(tecla: '.',pad: 28,),
+              ),
 
             GestureDetector(
               onTap: () => calcular('='),
-              child: Text('=', style: TextStyle(fontSize: 40,),)),
+              child: Btn(tecla: '=')
+              ),
 
             GestureDetector(
               onTap: () => calcular('+'),
-              child: Text('+', style: TextStyle(fontSize: 40,),)),
+              child: Btn(tecla: '+'),
+              ),
 
           ],),
 
@@ -385,19 +414,6 @@ class _MyAppState extends State<MyApp> {
       
       
       );
-
-
-      
-    
-
-    
-
-
-
-
-
-
-
 
 
   }
