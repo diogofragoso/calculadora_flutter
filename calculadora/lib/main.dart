@@ -7,11 +7,7 @@ import 'package:calculadora/componentes/btn.dart';
 
 void main(){
 runApp(MyApp());
-
-
 }
-
-
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -27,6 +23,8 @@ class _MyAppState extends State<MyApp> {
   double primeiroValor = 0.0;
   double segundoValor = 0.0;
   String operacao = '';
+  String numeroFormatado = '';
+  
 
   String numero = '';
 
@@ -79,7 +77,7 @@ class _MyAppState extends State<MyApp> {
 
 
     case '*':
-   List<String>parteNum = numero.split('*');
+            List<String> parteNum = numero.split('*');
                if(parteNum[0]==''){
                }else{          
                     numero +=tecla;
@@ -89,25 +87,28 @@ class _MyAppState extends State<MyApp> {
                     });
           }
     case '-':
-         String numeroModificado = numero.replaceAll('-', '');
-            
-            primeiroValor = double.parse(numeroModificado);
+         List<String>parteNum = numero.split('-');
+            if(parteNum[0]==''){
+             }else{ 
             numero +=tecla;
             operacao = tecla;
             setState(() {
               numero;
             });
+             }
     break;
 
     case '+':
     
-            String numeroModificado = numero.replaceAll('+', '');            
-            primeiroValor = double.parse(numeroModificado);        
+           List<String>parteNum = numero.split('+');
+            if(parteNum[0]==''){
+             }else{               
             numero +=tecla;          
             operacao = tecla;
             setState(() {
               numero;
             });
+             }
 
 
     break;
@@ -129,11 +130,11 @@ class _MyAppState extends State<MyApp> {
     primeiroValor = double.parse(parteNum[0]);
     segundoValor = double.parse(parteNum[1]);
     primeiroValor +=segundoValor;
-    numero = primeiroValor.toString().replaceFirst(RegExp(r'\.?0*$'), '');    
-
-
-      // resultado = primeiroValor + double.parse(numero);
-      // numero = resultado.toString().replaceFirst(RegExp(r'\.?0*$'), '');     
+    numero = primeiroValor.toString().replaceFirst(RegExp(r'\.?0*$'), '');  
+    if(numero.length >= 13){
+    numeroFormatado = double.parse(numero).toStringAsFixed(6);
+    numero = numeroFormatado;
+    }  
 
       setState(() {
         numero;
@@ -145,7 +146,11 @@ class _MyAppState extends State<MyApp> {
           primeiroValor = double.parse(parteNum[0]);
           segundoValor = double.parse(parteNum[1]);
           primeiroValor -=segundoValor;
-          numero = primeiroValor.toString().replaceFirst(RegExp(r'\.?0*$'), '');    
+          numero = primeiroValor.toString().replaceFirst(RegExp(r'\.?0*$'), '');   
+           if(numero.length >= 13){
+              numeroFormatado = double.parse(numero).toStringAsFixed(6);
+              numero = numeroFormatado;
+              } 
 
       setState(() {
         numero;
@@ -156,7 +161,11 @@ class _MyAppState extends State<MyApp> {
           primeiroValor = double.parse(parteNum[0]);
           segundoValor = double.parse(parteNum[1]);
           primeiroValor *=segundoValor;
-          numero = primeiroValor.toString().replaceFirst(RegExp(r'\.?0*$'), '');          
+          numero = primeiroValor.toString().replaceFirst(RegExp(r'\.?0*$'), '');  
+             if(numero.length >= 13){                
+                numeroFormatado = double.parse(numero).toStringAsFixed(6);
+                numero = numeroFormatado;
+                  }             
 
 
       setState(() {
@@ -171,8 +180,13 @@ class _MyAppState extends State<MyApp> {
           primeiroValor = double.parse(parteNum[0]);
           segundoValor = double.parse(parteNum[1]);
           primeiroValor /=segundoValor;
-          numero = primeiroValor.toString().replaceFirst(RegExp(r'\.?0*$'), '');   
+          numero = primeiroValor.toString().replaceFirst(RegExp(r'\.?0*$'), ''); 
+               if(numero.length >= 13){
+                  numeroFormatado = double.parse(numero).toStringAsFixed(6);
+                  numero = numeroFormatado;
+              }        
 
+          operacao = '';
       setState(() {
         numero;
       });
@@ -180,28 +194,17 @@ class _MyAppState extends State<MyApp> {
 
       }else{
         setState(() {
-
-          numero = 'Divisor zero';
-
-          
+          numero = 'Divisor zero';          
         });
       }
     }
 
 
-
-
   }
-
     break;
-         
-
-   }
-  
+   }  
      
-  }
-
-  
+  }  
 
   @override
   Widget build(BuildContext context) {
@@ -226,14 +229,14 @@ class _MyAppState extends State<MyApp> {
               
               children: [
               SizedBox(
-                height: 100,
+                height: 150,
                 child: Row(
                   
                   children: [
                     Container(
                      
                       
-                      child: Text(numero, style: TextStyle(fontSize: 40,), )),
+                      child: Text(numero, style: TextStyle(fontSize: 50,), )),
                   ],
                 ),
               ),
@@ -404,11 +407,6 @@ class _MyAppState extends State<MyApp> {
 
 
         ],),
-
-
-
-
-
 
       ),
       

@@ -10,8 +10,7 @@ class Btn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: const Color.fromARGB(
-              255, 12, 12, 12), // Defina a cor de fundo desejada aqui
+          color: Color.fromARGB(255, 82, 80, 80), // Defina a cor de fundo desejada aqui
           shape: BoxShape.circle),
       padding: EdgeInsets.all(pad),
       child: Text(
